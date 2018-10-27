@@ -1,6 +1,6 @@
 import socket
 from datetime import datetime
-import clienteInterface
+import clienteControle
 import ast
 import subprocess
 
@@ -13,7 +13,7 @@ MAX_BYTES = 65535    # Quantidade de Bytes a serem ser recebidos
 def client():
     sizeField = int(input("Informe o tamanho do campo:"))
     numberBobm = int(input("Informe o numero de bombas:"))
-    cm = clienteInterface.CampoMinado(sizeField)
+    cm = clienteControle.CampoMinado(sizeField)
 
     cm.dict['line'] = sizeField
     cm.dict['column'] = numberBobm

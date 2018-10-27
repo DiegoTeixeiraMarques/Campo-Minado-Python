@@ -23,8 +23,7 @@ class CampoMinado(servidorModelo.Campo):
             self.dict['msg'] = 'Bomba, Game Over!'
             self.mineField = self.updateDict(self.mineField)
 
-        elif(type(self.cleanField[line][column]) == str):
-            print('teste')     
+        elif(type(self.cleanField[line][column]) == str):  
             neighbors = self.takeNeighbors(line, column)
             self.bombCount(neighbors)
             self.dict['controlPlay'] = 3
@@ -83,8 +82,10 @@ class CampoMinado(servidorModelo.Campo):
         sizeField = len(self.cleanField)
         for line in range(0, sizeField):
             for column in range(0, sizeField):
-                if (type(self.cleanField[line][column]) == '-'):
+                if (type(self.cleanField[line][column]) == str):
                     self.count = self.count + 1
+        print(self.count, self.numberBomb)
+        print('numero de areas livre:', self.count - self.numberBomb)
         return self.count - self.numberBomb
 
     
