@@ -5,7 +5,7 @@ import ast
 import subprocess
 
 ENCODE = "UTF-8"
-HOST = '192.168.0.13'   # Endereco IP do Servidor
+HOST = 'localhost'   # Endereco IP do Servidor
 PORT = 5000          # Porta que o Servidor esta
 MAX_BYTES = 99999    # Quantidade de Bytes a serem ser recebidos
 
