@@ -9,4 +9,4 @@ ___Passo para Execução___
 
     Com o Python instalado em sua máquina...
      
-    ... ainda em contrucao ..
+    ... ainda em construcao ..
