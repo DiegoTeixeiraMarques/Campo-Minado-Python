@@ -10,7 +10,6 @@ MAX_BYTES = 65535
 PORT = 5000            # Porta que o servidor escuta
 HOST = ''              # Endereco IP do Servidor
 
-    #####################################################################################################
     
 """ Forma Orientado a objeto """
 
@@ -47,6 +46,7 @@ class ThreadTratador(threading.Thread):
         data = ast.literal_eval(data)
         
         if (data['played'] == 0):
+            players.append(data)
             sizeField = data['line']
             numberBomb = data['column']
             cm = servidorControle.CampoMinado(sizeField, numberBomb)
@@ -69,5 +69,6 @@ class ThreadTratador(threading.Thread):
         #text = "Quantidade de bytes enviados: " + str(len(data))
         #data = text.encode(ENCODE)
         #sock.sendto(data, address)
-#if __name__ == "__main__":
-server_thread_oo()
+if __name__ == "__main__":
+    players = []
+    server_thread_oo()
