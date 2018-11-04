@@ -9,23 +9,25 @@ ENCODE = "UTF-8"
 MAX_BYTES = 65535
 PORT = 5000            # Porta que o servidor escuta
 HOST = ''              # Endereco IP do Servidor
-
+players = []
     
 """ Forma Orientado a objeto """
 
 def server_thread_oo():
+
     #Abrindo uma porta UDP
     orig = (HOST, PORT)
     sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     sock.bind(orig)
     
     while True:
-        #recebi dados
-        data, address = sock.recvfrom(MAX_BYTES) # Recebi dados do socket
+
+        #Recebe os dados
+        data, address = sock.recvfrom(MAX_BYTES)                               # Recebendo dados do socket
 
         #Criação de thread orientada a objeto
-        tratador = ThreadTratador(sock, data, address)
-        tratador.start()
+        tratador = ThreadTratador(sock, data, address)                         # Instancia objeto tratador da classe ThreadTratador
+        tratador.start()                                                       # Inicializa thread
 
 
 class ThreadTratador(threading.Thread):
@@ -41,7 +43,7 @@ class ThreadTratador(threading.Thread):
 
     def __tratar_conexao(self, sock, data, address):
 
-        data = data.decode(ENCODE)               # Convertendo dados de BASE64 para UTF-8
+        data = data.decode(ENCODE)                                             # Convertendo dados de BASE64 para UTF-8
         data = str(data)
         data = ast.literal_eval(data)
         
@@ -69,6 +71,7 @@ class ThreadTratador(threading.Thread):
         #text = "Quantidade de bytes enviados: " + str(len(data))
         #data = text.encode(ENCODE)
         #sock.sendto(data, address)
+
+
 if __name__ == "__main__":
-    players = []
     server_thread_oo()
