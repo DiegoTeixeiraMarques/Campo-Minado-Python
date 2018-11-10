@@ -75,7 +75,7 @@ class CampoMinado(servidorModelo.Campo):                                        
 
     def countFreeArea(self):
 
-        """ COnta área livres restantes no Campo de Jogo """
+        """ Conta área livres restantes no Campo de Jogo """
 
         self.count = 0                                                                # Inicializa contador
         sizeField = len(self.cleanField)

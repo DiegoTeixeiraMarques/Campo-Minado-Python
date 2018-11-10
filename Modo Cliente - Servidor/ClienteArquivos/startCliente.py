@@ -41,6 +41,8 @@ def client():
                                                                 # Dados recebidos: { (0,0): 0 , (0,1):0 , (0,2):0 , ... , (2,2):0 , ... , 'msg': x , 'freeAreas': x , 'altered': True , controlPlay: x }
 
     #Tratamento da resposta
+    cm.dict['id'] = answer['id']                                # Atribui o identificador do cliente gerado no servidor
+    print(cm.dict.values())
     cm.translateReturn(answer)                                  # Inicializa metodo para traducao e apresentacao da resposta em tela
 
     #Fechando Socket

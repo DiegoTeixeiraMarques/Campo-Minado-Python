@@ -6,8 +6,7 @@ class Campo:
 
     def __init__(self, fieldSize, numberBomb):
         self.numberBomb = numberBomb
-        self.cleanField = [['-' for i in
-        range(fieldSize)] for i in range(fieldSize)]
+        self.cleanField = [['-' for i in range(fieldSize)] for i in range(fieldSize)]
         self.mineField = self.generateBomb([[0 for i in range(fieldSize)] for i in range(fieldSize)], self.numberBomb)
         self.dict = self.createDictionary({}, fieldSize)
     
@@ -44,4 +43,5 @@ class Campo:
         dict['played'] = 0
         dict['altered'] = True
         dict['contolPlay'] = 0
+        dict['id'] = 0
         return dict
