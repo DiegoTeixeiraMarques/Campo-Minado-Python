@@ -4,44 +4,48 @@ import subprocess
 import socket
 import threading
 from datetime import datetime
+import zmq
+import sys
 
 ENCODE = "UTF-8"
 MAX_BYTES = 65535
-PORT = 5000            # Porta que o servidor escuta
+PORT = 5001            # Porta que o servidor escuta
 HOST = ''              # Endereco IP do Servidor
 players = []           # Cria uma lista para alocar os diversos jogadores online
+
+###############################################################
+                                                                # 
+#Abre conexão com gestor de filas                               #
+context = zmq.Context()                                         #
+socket = context.socket(zmq.REP)                                #
+socket.connect("tcp://localhost:%s" % PORT)                     #
+                                                                #
+###############################################################
 
 """ Forma Orientado a objeto """
 
 def server_thread_oo():
 
-    #Abrindo uma porta UDP
-    orig = (HOST, PORT)
-    sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-    sock.bind(orig)
-    
     while True:
 
         #Recebe os dados
-        data, address = sock.recvfrom(MAX_BYTES)                               # Recebendo dados do socket
+        data = socket.recv()                                    # Recebendo dados do socket
 
         #Criação de thread orientada a objeto
-        tratador = ThreadTratador(sock, data, address)                         # Instancia objeto tratador da classe ThreadTratador
-        tratador.start()                                                       # Inicializa thread
+        tratador = ThreadTratador(data)                         # Instancia objeto tratador da classe ThreadTratador
+        tratador.tratar_conexao(data)                           # Inicializa thread
+                                                                
 
 
 class ThreadTratador(threading.Thread):
 
-    def __init__(self, sock, data, address):                                   # Recebe as informações de conexão
+    def __init__(self, data):                                   # Recebe as informações de conexão
         threading.Thread.__init__(self)
-        self.sock = sock
         self.data = data
-        self.address = address
 
-    def run(self):                                                             # Executada pelo método .start()
-        self.__tratar_conexao(self.sock, self.data, self.address)
 
-    def __tratar_conexao(self, sock, data, address):
+
+    def tratar_conexao(self, data):
 
         """ Trata as infomrações recebidas dos jogadores para devolver uma resposta válida """
 
@@ -69,13 +73,13 @@ class ThreadTratador(threading.Thread):
         #Envia resposta 
         answer = str(cm.dict)                                                  # Atribui o dicionário que será enviado como resposta a uma variável
         answer = answer.encode(ENCODE)                                         # Codifica para BASE64 os dados 
-        sock.sendto(answer, address)                                           # Envia os dados	
+        socket.send(answer)                                                    # Envia os dados	
 
     def identificator(self, dict):
 
         """ Cria um ID para um jogador novo baseado no índice em que suas informações ficarão alocadas dentro da lista de players """
         
-        dict['id'] = len(players) - 1
+        dict['id'] = len(players) - 1                                          # atribui ID ao jogador de acordo com seu índice na lista de players
         return dict
 
 if __name__ == "__main__":
