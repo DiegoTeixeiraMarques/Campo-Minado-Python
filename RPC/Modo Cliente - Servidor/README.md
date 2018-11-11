@@ -9,4 +9,5 @@ ___Passo para Execução___
 
     Com o Python instalado em sua máquina...
      
-    ... ainda em construcao ..
+    Execute o arquivo startServidor.py que está dentro da pasta ServidorArquivos
+    Execute o arquivo startCliente.py que está dentro da pasta ClienteArquivos
